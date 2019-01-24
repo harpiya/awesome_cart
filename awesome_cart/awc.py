@@ -1,3 +1,15 @@
+# @Author: Saadettin Yasir AKEL <developer>
+# @Date:   2019-01-24T10:41:06+03:00
+# @Email:  yasir@harpiya.com
+# @Project: Harpiya Kurumsal Yönetim Sistemi
+# @Filename: awc.py
+# @Last modified by:   developer
+# @Last modified time: 2019-01-24T10:55:36+03:00
+# @License: MIT License. See license.txt
+# @Copyright: Harpiya Yazılım Teknolojileri
+
+
+
 from __future__ import unicode_literals
 
 import json
@@ -10,10 +22,10 @@ from frappe import _dict, _
 from frappe.utils import cint, cstr, random_string, flt, get_datetime
 from erpnext.stock.get_item_details import apply_price_list_on_item
 
-from compat.customer import get_current_customer
-from compat.shopping_cart import apply_cart_settings, set_taxes, get_cart_quotation
-from compat.erpnext.shopping_cart import get_shopping_cart_settings, get_pricing_rule_for_item
-from compat.addresses import get_address_display
+from awesome_cart.compat.customer import get_current_customer
+from .compat.shopping_cart import apply_cart_settings, set_taxes, get_cart_quotation
+from .compat.erpnext.shopping_cart import get_shopping_cart_settings, get_pricing_rule_for_item
+from .compat.addresses import get_address_display
 from .session import *
 from .utils import is_coupon_valid
 from .awesome_cart.doctype.awc_coupon.awc_coupon import calculate_coupon_discount
