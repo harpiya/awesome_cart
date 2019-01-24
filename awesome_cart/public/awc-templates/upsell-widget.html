@@ -1,0 +1,12 @@
+{{#if related_products }}
+<div class="related-products">
+    <div class="section-content container">
+        <h3>You May Also Like</h3>
+        <div class="slick-horizontal">
+            {{#each related_products }}
+            <div>{{{ template related_widget this }}}</div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+{{/if}}

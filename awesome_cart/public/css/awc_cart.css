@@ -1,0 +1,627 @@
+#checkout-panels {
+	display: none;
+}
+
+#checkout-panels .panel {
+	display: block;
+}
+
+#checkout-panels > .panel ~ .panel{
+	display: none;
+}
+
+.awc-placeholder.loading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: block;
+  background-image: url(/assets/awesome_cart/images/spinner-small.gif);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  height: 11px;
+	width: 16px;
+}
+
+.awc-form .no-pad {
+	padding: 0;
+}
+
+.awc-form .nopadding {
+	padding: 0;
+}
+
+.awc-form .nopad-left {
+	padding-left: 0;
+}
+
+.awc-form .nopad-right {
+	padding-right: 0;
+}
+
+/* remove spacing between middle columns */
+.awc-form .row.no-inner-gutter [class*='col-']:not(:first-child):not(:last-child) {
+	padding-right: 0;
+	padding-left: 0;
+}
+/* remove right padding from first column */
+.awc-form .row.no-inner-gutter [class*='col-']:first-child {
+	padding-right: 0;
+}
+.awc-form .row.no-inner-gutter [class*='col-']:last-child {
+	padding-left: 0;
+}
+.awc-form .row.no-gutter [class*='col-'] {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.awc-form .field {
+	font-size: 1em;
+	position: relative;
+	border: 1px solid #bbb;
+	background: #fff;
+	border-radius: 4px;
+	margin: .1em;
+}
+.awc-form .field:not(.custom) {
+	padding: 0 .2em 0;
+}
+
+.awc-form .field.hidden {
+	display: none;
+}
+
+.awc-form .field.locked {
+	background: #d8d8d8;
+}
+
+.awc-form .field.noborder {
+	border: none;
+	background: transparent;
+}
+
+.awc-form .field.required::after {
+	display: block;
+	position: absolute;
+	content: "*";
+	font-size: 1em;
+	border-radius: 1em;
+	top: .2em;
+	right: .2em;
+	transition: all .5s ease;
+}
+
+.awc-form .field.required.hasvalue::after {
+	opacity: 0;
+	transition: all .5s ease;
+}
+
+.awc-form .field.required.error::after {
+	color: red;
+}
+
+.awc-form .field:not(.custom) label {
+	display: block;
+	position: absolute;
+	top: 25%;
+	left: .8em;
+	font-size: .6em;
+	font-weight: bolder;
+	opacity: 0;
+	transition: all .5s;
+}
+
+.awc-form .field.hasvalue:not(.custom) label,
+.awc-form .field.focus:not(.custom) label {
+	opacity: 1;
+	transition: all .5s;
+	top: .1em;
+}
+
+.awc-form .field.focus:not(.custom) label {
+	color: #286090;
+	font-weight: bolder;
+}
+
+.awc-form .field.error:not(.custom) label {
+	color: red;
+	font-weight: normal;
+}
+
+.awc-form .field.error.focus:not(.custom) label {
+	color: red;
+	font-weight: bolder;
+}
+/* webkit */
+.awc-form .field.focus:not(.custom) input::-webkit-input-placeholder,
+.awc-form .field.focus:not(.custom) textarea::-webkit-input-placeholder {
+	transition: opacity 0.5s 0s ease;
+	opacity: 0;
+}
+/* FF 19+ */
+.awc-form .field.focus:not(.custom) input::-moz-placeholder,
+.awc-form .field.focus:not(.custom) textarea::-moz-placeholder {
+	transition: opacity 0.5s 0s ease;
+	opacity: 0;
+}
+/* MS 10+ */
+.awc-form .field.focus:not(.custom) input:-ms-input-placeholder,
+.awc-form .field.focus:not(.custom) textarea:-ms-input-placeholder {
+	transition: opacity 0.5s 0s ease;
+	opacity: 0;
+}
+/* FF18- */
+.awc-form .field.focus:not(.custom) input:-moz-placeholder,
+.awc-form .field.focus:not(.custom) textarea:-moz-placeholder {
+	transition: opacity 0.5s 0s ease;
+	opacity: 0;
+}
+
+.awc-form .field:not(.custom) select,
+.awc-form .field:not(.custom) input,
+.awc-form .field:not(.custom) textarea {
+	border: none;
+	background: transparent;
+	outline: none;
+	width: 100%;
+	z-index: 1;
+	display: block;
+	padding: 1em .5em 0 .5em;
+}
+
+/* removes autofill forced background color */
+.awc-form .field:not(.custom) input:-webkit-autofill,
+.awc-form .field:not(.custom) input:-webkit-autofill:hover,
+.awc-form .field:not(.custom) input:-webkit-autofill:focus,
+.awc-form .field:not(.custom) textarea:-webkit-autofill,
+.awc-form .field:not(.custom) textarea:-webkit-autofill:hover,
+.awc-form .field:not(.custom) textarea:-webkit-autofill:focus {
+	-webkit-box-shadow:0 0 0 9999px white inset; /* Change the color to your own background color */
+}
+
+/* Removes safari, chrome and FF gloss */
+.awc-form .field:not(.custom) select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+/* first selector is to override authnet form version, TODO: find better place for this */
+.field:not(.custom) select::-ms-expand,
+.awc-form .field:not(.custom) select::-ms-expand {
+	display: none
+}
+
+/* overrides bootstrap glyph positioning for select down arrow */
+.awc-form .field .select-arrow {
+	position: absolute;
+	right: 1em;
+	top: 50%;
+	transform: translateY(-50%);
+	bottom: .5em;
+	font-size: .8em;
+}
+
+.awc-form .field:not(.custom) input.minimal {
+	width: auto;
+	width: initial;
+}
+
+.awc-form .field.required.error {
+	border-color: #f00;
+	box-shadow: 0px 0px 5px 1px rgba(255, 0, 0, 0.37);
+}
+
+/** bof - Colorize placeholder on error **/
+/* webkit */
+.awc-form .field.required.error input::-webkit-input-placeholder,
+.awc-form .field.required.error textarea::-webkit-input-placeholder {
+	color: #f00;
+}
+/* FF 19+ */
+.awc-form .field.required.error input::-moz-placeholder,
+.awc-form .field.required.error textarea::-moz-placeholder {
+	color: #f00;
+}
+/* MS 10+ */
+.awc-form .field.required.error input:-ms-input-placeholder,
+.awc-form .field.required.error textarea:-ms-input-placeholder {
+	color: #f00;
+}
+/* FF18- */
+.awc-form .field.required.error input:-moz-placeholder,
+.awc-form .field.required.error textarea:-moz-placeholder {
+	color: #f00;
+}
+
+/* webkit */
+.awc-form .field.locked input::-webkit-input-placeholder,
+.awc-form .field.locked textarea::-webkit-input-placeholder {
+	color: transparent;
+}
+
+/* FF 19+ */
+.awc-form .field.locked input::-moz-placeholder,
+.awc-form .field.locked textarea::-moz-placeholder {
+	color: transparent;
+}
+
+/* MS 10+ */
+.awc-form .field.locked input:-ms-input-placeholder,
+.awc-form .field.locked textarea:-ms-input-placeholder {
+	color: transparent;
+}
+
+/* FF18- */
+.awc-form .field.locked input:-moz-placeholder,
+.awc-form .field.locked textarea:-moz-placeholder {
+	color: transparent;
+}
+
+.awc-form .radioctrl {
+	position: relative;
+	display: block;
+	margin: 0;
+	padding: 4px;
+}
+
+.awc-form .radioctrl .radio {
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	width: 28px;
+	height: 28px;
+	top: 50%;
+	left: 4px;
+	transform: translateY(-50%);
+	background: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+	border-radius: 30px;
+	cursor: pointer;
+}
+
+.awc-form .radioctrl .radio:before {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	content: "";
+	width: 20px;
+	height: 20px;
+	background-color: transparent;
+	border-radius: 20px;
+}
+
+.awc-form .radioctrl .short-text, .radioctrl .long-text {
+	display: block;
+	padding-left: 40px;
+	padding-right: 24px;
+}
+
+.awc-form .radioctrl .long-text pre {
+	margin: 0;
+}
+
+.awc-form .radioctrl .long-text {
+	display: none;
+}
+
+.awc-form .radioctrl .btn-group {
+	display: none;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+}
+.awc-form .radioctrl .btn-group .btn {
+	width: 24px;
+	transition: width .5s ease-in-out;
+}
+.awc-form .radioctrl .btn-group .btn:hover {
+	width: 60px;
+}
+
+.awc-form .radioctrl .btn-group .btn span {
+	position: absolute;
+	display: block;
+	margin: 0;
+	padding: 0;
+	left: 50%;
+	top: 50%;
+	transform: translateX( -50%) translateY(-50%);
+}
+
+.awc-form .radioctrl .btn-group .btn {
+	height: 100%;
+	padding: 4px;
+}
+
+.awc-form .radioctrl .btn-group > .btn:first-child {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.awc-form .radioctrl input {opacity: 0; float: left;}
+
+.awc-form .radioctrl input:checked + .radio:before {
+	background-color: #286090;
+}
+
+.awc-form .radioctrl input:checked + .radio {
+	border: 1px solid #286090;
+}
+
+.awc-form .radioctrl input:checked + .radio + .short-text {
+	display: none;
+}
+.awc-form .radioctrl input:checked + .radio + .short-text + .long-text {
+	display: block;
+}
+.awc-form .radioctrl input:checked + .radio + .short-text + .long-text + .btn-group {
+	display: block;
+}
+
+/* The switch - the box around the slider */
+.awc-form .switch {
+	position: absolute;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 2px;
+}
+
+.awc-form .switch-text {
+	display: inline-block;
+	margin-right: 65px;
+}
+
+.awc-form .switch-field {
+	padding: 8px;
+	margin: 0;
+}
+/* Hide default HTML checkbox */
+.awc-form .switch-field input {opacity:0;}
+
+/* The slider */
+.awc-form .slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+	border-radius: 34px;
+}
+
+.awc-form .slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+	border-radius: 50%;
+}
+
+.awc-form input:checked + .slider {
+	background-color: #286090;
+}
+
+.awc-form input:focus + .slider:before {
+	box-shadow: 0 0 1px 2px #286090;
+}
+
+.awc-form input:checked + .slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+}
+
+.awc-form .field.custom.line {
+	line-height: 2em;
+	padding-left: 1em;
+	display: flex;
+	flex-direction: row;
+}
+.awc-form .field.custom.line input {
+	margin-top: 12px;
+}
+.awc-form .field.custom.line label {
+	padding: 0 0 0 .5em;
+	margin: 6px 0 0 0;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+
+.awc-form .actions {
+	margin-top: 2em;
+}
+
+#customer-select-window {
+	position: fixed;
+	background: rgba(0,0,0,.3);
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 99999;
+}
+
+#customer-select-window .window {
+	position: absolute;
+	width: 400px;
+	max-height: 400px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: .8em;
+	overflow: auto;
+	background: #e8e8e8;
+	color: #000;
+	border-radius: .5em;
+	border: 1px solid black;
+}
+
+#customer-select-window .window ul {
+	display: block;
+	padding: 0;
+	margin: 0;
+}
+
+#customer-select-window .window li {
+	display: block;
+	list-style: none;
+	padding: 0;
+	margin: 2px;
+	cursor: pointer;
+}
+#customer-select-window .window li .item {
+	padding: .5em 1em;
+}
+#customer-select-window .window li .item img {
+	height: 2em;
+}
+
+#customer-select-window .window li .item:hover {
+	background: #333;
+	color: #fff;
+}
+
+.coupon_input {
+	display: none;
+  padding: 1em 0;
+  background: #E2E2E2;
+  border-radius: .5em;
+  margin-bottom: .5em;
+}
+
+.coupon_input .coupon-code-label {
+	margin-top: .3em;
+}
+
+body.is_logged_in .coupon_input {
+	display: block;
+}
+
+body .coupon_input.no-login {
+	display: block;
+}
+body.is_logged_in .coupon_input.no-login {
+	display: none;
+}
+
+#checkout-shipping-method > h2 {
+	margin-top: 5px;
+}
+
+#use-customer-fedex-acc {
+	padding-top: 1px;
+}
+
+/* Use customer Fedex toggle Start */
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+	padding-right: 65px;
+}
+
+.switch input {display:none;}
+
+.slide {
+	position: absolute;
+	cursor: pointer;
+	top: 8px;
+	left: 5px;
+	right: 10px;
+	bottom: 2px;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.slide:before {
+	position: absolute;
+	content: "";
+	height: 18px;
+	width: 18px;
+	left: 3px;
+	bottom: 3px;
+	/*background-color: white;*/
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+input:checked + .slide {
+	background-color: #000000;/*#2196F3;*/
+}
+
+input:focus + .slide {
+	box-shadow: 0 0 1px #000000;/*#2196F3;*/
+}
+
+input:checked + .slide:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slide.round {
+	border-radius: 34px;
+}
+
+.slide.round:before {
+	border-radius: 50%;
+}
+
+/* Use customer Fedex toggle End */
+
+#cart-full .total {
+	font-size: 1.5em;
+	color: black;
+	padding: 1em 0;
+	font-weight: bold;
+	border-top: 1px solid;
+	margin-top: 1em;
+}
+
+#cart-subtotal {
+	border-top: 1px solid black;
+	margin-top: 1em;
+	padding-top: .5em;
+}
+
+#discount-breakdown {
+	background: #f1f1f1;
+  padding: .5em;
+  font-weight: normal;
+  font-size: .8em;
+  margin: 1em 0;
+  border-radius: .25em;
+  color: #8a8a8a;
+}
+
+#discount-breakdown .item {
+	color: #888;
+	font-weight: lighter;
+}
+
+#discount-breakdown .columns {
+	border-bottom: 1px solid black;
+	color: #888;
+	font-weight: lighter;
+}

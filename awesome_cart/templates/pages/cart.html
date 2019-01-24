@@ -1,0 +1,228 @@
+{% extends "templates/web.html" %}
+
+{% block title %} {{ "Shopping Cart" }} {% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block style %}
+	{# Only load login widget if not logged in #}
+	{% if not is_logged %}
+		<style>
+			{% include "templates/widgets/login/css/widget.css" %}
+		</style>
+	{% endif %}
+	{%- if gateway_provider %}
+		{%- for style in gateway_provider.styles %}
+			<link type="text/css" rel="stylesheet" href="{{ style }}"/>
+		{% endfor -%}
+	{% endif -%}
+
+{% endblock %}
+
+{% block header_actions %}{% endblock %}
+
+{% block content %}
+
+<div class="row aw-row">
+	<div class="col-md-7 aw-col-left">
+
+		<h1>{{ _("My Cart") }}</h1>
+		<div id="cart-full"></div>
+
+	</div>
+	<div class="col-md-5 aw-col-right">
+		<div class="col-content focus-column right-col">
+			<div id="awc-forms">
+
+{# Only load login widget if not logged in #}
+{% if not is_logged %}
+				<div  id="checkout-login">
+					{% include "templates/widgets/login/widget.html" with context %}
+				</div>
+{% else %}
+				<div id="checkout-panels">
+					<div class="header">
+						<div class="title">Checkout</div>
+						<ul id="checkout-breadcrumb">
+								<a href="" id="bc-shipping" class="breadcrumb active">Shipping</a>
+								<a href="" id="bc-shipping-method" class="breadcrumb">Shipping Method</a>
+								<a href="" id="bc-billing" class="breadcrumb">Billing</a>
+								<a href="" id="bc-checkout" class="breadcrumb">Checkout</a>
+						</ul>
+					</div>
+
+					<div id="checkout-shipping-address" data-bc="#bc-shipping" class="panel">
+						<div id="awc-shipping-addrs"></div>
+					</div>
+
+					<div id="checkout-shipping" data-bc="#bc-shipping" class="panel">
+							{% include "templates/includes/shipping/shipping_form.html" with context %}
+					</div>
+
+					<div id="checkout-shipping-method" data-bc="#bc-shipping-method" class="panel">
+						{% if customer_info.has_shipping_acc != 0 %}
+						<div id="use-customer-fedex-acc">
+							<label class="switch pull-right">
+								<input type="checkbox" data-toggle=false>
+								<span class="slide round"></span>
+							</label>
+							<h4 class="pull-right">Use my Fedex Account No</h4>
+						</div>
+						{% endif %}
+						<h2>Shipping Method</h2>
+						<ul class="content list-unstyled" id="awc-shipping-method"></ul>
+						<div class="error">
+							<div class="error-invalid-address">Invalid Shipping Address. Edit your shipping information to get shipping quote.</div>
+							<div class="error-other"></div>
+						</div>
+						<div class="spinner">Fetching Shipping Rates.<br> Please wait...<br><img src="/assets/awesome_cart/images/spinner.gif"/></div>
+						<button class="btn btn-default btn-primary btn-next">Next</button>
+					</div>
+
+					<div id="checkout-billing" data-bc="#bc-billing" class="panel">
+							{# embeds gateway provider form #}
+							{% if gateway_provider %}
+								{{ gateway_provider.form }}
+							{% else %}
+								<div class="alert">No Gateway Provider Found!</div>
+							{% endif %}
+					</div>
+
+					<div id="checkout-confirmation" data-bc="#bc-checkout" class="panel">
+						<p>Please review your information before once more before completing checkout</p>
+
+						<div class="confirm-box dti-form" id="checkout-confirm-shipping">
+							<h4>Shipping Information<button class="btn btn-default btn-primary">Edit</button></h4>
+							<div class="content"></div>
+
+						</div>
+
+						<div class="confirm-box dti-form" id="checkout-confirm-billing">
+							<h4>Billing Information<button class="btn btn-default btn-primary">Edit</button></h4>
+							<div class="content"></div>
+
+						</div>
+
+						<div class="confirm-box dti-form" id="checkout-confirm-totals">
+							{% if selected_customer %}
+							<h4 class="selected-customer"><span>Totals For:</span><span class="value">{{ selected_customer }}</span></h4>
+							{% else %}
+							<h4>Your Totals:</h4>
+							{% endif %}
+							<div class="content">
+								<div class="sub-total">Subtotal: <span class="value"></span></div>
+								<div class="other-totals">
+								</div>
+								<div class="grand-total">Total: <span class="value"></span></div>
+							</div>
+						</div>
+
+						<div class="confirm-box awc-form" id="checkout-confirm-instructions">
+							<div class="field">
+								<label for="order-instructions">Special Instructions</label>
+								<textarea id="order-instructions" name="order-instructions" placeholder="Special Instructions"></textarea>
+							</div>
+						</div>
+
+						<div class="dti-form" id="confirm-form">
+							<label style="cursor: pointer"><input name="accept_terms" type="checkbox" value="1"/><span> I agree with the <a href="policies" rel="nofollow" target="_blank">Terms and Conditions</a></span></label>
+							{% if gateway_provider %}
+								{{ gateway_provider.submit }}
+							{% else %}
+								<div class="alert">No Gateway Provider Found!</div>
+							{% endif %}
+						</div>
+					</div>
+
+					<div id="checkout-processing" class="panel">
+						<p>Processing, please wait...</p>
+						<div class="spinner"></div>
+					</div>
+
+					<div id="checkout-error" class="panel">
+						<p>There was an error while processing your order:</p>
+						<div class="msg error"></div>
+						<button class="btn btn-default btn-primary">Back</button>
+					</div>
+
+					<div id="checkout-success" class="panel">
+						<p>Success!</p>
+						<p>Now redirecting. Please wait...</p>
+					</div>
+				</div>
+{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+<div id="upsell">
+</div>
+
+<!-- no-sidebar -->
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/assets/js/awc_cart.js"></script>
+
+<script type="text/javascript">
+{% if awc_alert %}
+frappe.ready(function() {
+	frappe.msgprint({{ awc_alert| json }});
+});
+{% endif %}
+</script>
+
+{% if gateway_provider %}
+	{% for script in gateway_provider.scripts %}
+		<script type="text/javascript" src="{{script}}"></script>
+	{% endfor %}
+
+	<script type="text/javascript">
+		cart.on('init', function() {
+			cart.gateway_info = {}
+			cart.shipping_info = {}
+
+			awc_checkout.gateway_provider = new {{gateway_provider.js_api_factory}}({{ gateway_provider.context|json }});
+			awc_checkout.gateway_provider.on_process = cart.validate.bind(cart);
+			awc_checkout.gateway_provider.form(cart.gateway_info);
+
+			awc_checkout.shipping_provider = new AwcShippingProvider(cart);
+			awc_checkout.shipping_provider.form(cart.shipping_info);
+		});
+	</script>
+{% endif %}
+
+{% if upsell %}
+<script type="text/javascript">
+	cart.on('init', function() {
+		// we are reusing the upsell widget template from product details
+		cart
+			.template('/assets/awesome_cart/awc-templates/upsell-widget.html')
+			.promiseReady()
+			.then((tpl) => {
+				// after fetching upsell widget, well build it from context data
+				var html = tpl.beginRender({{ upsell| json }});
+				$('#upsell').append(html);
+				$('#upsell').addClass('awc-placeholder loaded');
+				return tpl.endRender().then((r) => {
+					cart.updateUI();
+					return r;
+				});
+			})
+	});
+</script>
+{% endif %}
+
+{# Only load login widget if not logged in #}
+{% if not is_logged %}
+<script type="text/javascript">
+	{% include "templates/widgets/login/js/widget.js" with context %}
+
+	// bypass redirect to keep user on checkout page
+	frappe.on_login_redirect_handler = function(url) {
+		window.location.href = "/cart";
+	}
+</script>
+{% endif %}
+
+{% endblock %}
